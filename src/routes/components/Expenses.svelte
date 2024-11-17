@@ -1,4 +1,5 @@
 <script lang="ts">
+	import { enhance } from '$app/forms';
 	import type { expense } from '$lib/server/db/schema';
 
 	let { expenses }: { expenses: Array<typeof expense.$inferSelect> } = $props();
@@ -13,9 +14,9 @@
 						<input type="checkbox" class="checkbox" />
 					</label>
 				</th>
-				<th>Name</th>
-				<th>Value</th>
-				<th>Date</th>
+				<th>nome</th>
+				<th>valor</th>
+				<th>data</th>
 				<th></th>
 			</tr>
 		</thead>
@@ -41,18 +42,25 @@
 					<td>{new Date(expense.created_at).toLocaleDateString('pt-BR')}</td>
 
 					<th>
-						<button class="btn btn-ghost btn-xs">details</button>
+						<div class="flex gap-4">
+							<button class="btn btn-ghost btn-xs">detalhes</button>
+
+							<form method="POST" action={`?/delete`} use:enhance>
+								<input type="hidden" name="id" value={expense.id} />
+								<button class="btn btn-error btn-xs">remover</button>
+							</form>
+						</div>
 					</th>
 				</tr>
 			{/each}
 		</tbody>
-		<!-- foot -->
+
 		<tfoot>
 			<tr>
 				<th></th>
-				<th>Name</th>
-				<th>Value</th>
-				<th>Date</th>
+				<th>nome</th>
+				<th>valor</th>
+				<th>data</th>
 				<th></th>
 			</tr>
 		</tfoot>

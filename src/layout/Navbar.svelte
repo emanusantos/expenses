@@ -1,13 +1,5 @@
 <script lang="ts">
-	function handleClickNewExpense() {
-		const newExpenseModal = document.getElementById('new-expense-modal');
-
-		if (!newExpenseModal) return;
-
-		const modal = newExpenseModal as HTMLElement & { showModal(): void };
-
-		modal.showModal();
-	}
+	import { openNewExpenseModal } from '$lib';
 </script>
 
 <div class="navbar bg-base-100">
@@ -30,8 +22,8 @@
 		</button>
 	</div>
 	<div class="flex-1">
-		<a class="btn btn-ghost text-xl" href="/">Expenses</a>
+		<a class="btn btn-ghost text-xl" href="/">despesas</a>
 	</div>
 
-	<button class="btn btn-square btn-ghost mr-4" onclick={handleClickNewExpense}>New +</button>
+	<button class="btn btn-square btn-ghost mr-4" onclick={openNewExpenseModal}>nova +</button>
 </div>

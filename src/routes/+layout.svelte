@@ -6,7 +6,7 @@
 </script>
 
 <svelte:head>
-	<title>Expenses</title>
+	<title>despesas</title>
 </svelte:head>
 
 <Navbar />

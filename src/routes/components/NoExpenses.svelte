@@ -1,3 +1,7 @@
+<script lang="ts">
+	import { openNewExpenseModal } from '$lib';
+</script>
+
 <div role="alert" class="alert m-auto max-w-[50%] shadow-lg">
 	<svg
 		xmlns="http://www.w3.org/2000/svg"
@@ -13,9 +17,9 @@
 		></path>
 	</svg>
 	<div>
-		<h3 class="font-bold">No expenses registered yet.</h3>
-		<div class="text-xs">Start adding your expenses to control your money.</div>
+		<h3 class="font-bold">nenhuma despesa adicionada.</h3>
+		<div class="text-xs">comece a adicionar suas despesas para controlar seus gastos!</div>
 	</div>
 
-	<button class="btn btn-sm">Add</button>
+	<button class="btn btn-sm" onclick={openNewExpenseModal}>+ adicionar</button>
 </div>
