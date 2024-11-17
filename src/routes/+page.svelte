@@ -9,7 +9,7 @@
 		<NoTransactions />
 	{:else}
 		<div class="flex flex-col gap-10">
-			<Stats />
+			<Stats gains={data.gains} expenses={data.expenses} />
 
 			<Transactions transactions={data.transactions} />
 		</div>

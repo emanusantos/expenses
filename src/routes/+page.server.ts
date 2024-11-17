@@ -1,13 +1,25 @@
 import { db } from '$lib/server/db';
 import { transaction } from '$lib/server/db/schema';
 import { fail } from '@sveltejs/kit';
-import { eq } from 'drizzle-orm';
+import { desc, eq, sum } from 'drizzle-orm';
 
 export async function load() {
-	const transactions = await db.select().from(transaction);
+	const [transactions, [{ total: gains }], [{ total: expenses }]] = await Promise.all([
+		db.select().from(transaction).orderBy(desc(transaction.created_at)),
+		db
+			.select({ total: sum(transaction.value).mapWith(Number) })
+			.from(transaction)
+			.where(eq(transaction.expense, false)),
+		db
+			.select({ total: sum(transaction.value).mapWith(Number) })
+			.from(transaction)
+			.where(eq(transaction.expense, true))
+	]);
 
 	return {
-		transactions
+		transactions,
+		gains,
+		expenses
 	};
 }
 

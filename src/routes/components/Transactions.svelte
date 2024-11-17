@@ -34,7 +34,7 @@
 						<div class="text-sm opacity-50">{transaction.name}</div>
 					</td>
 
-					<td>
+					<td class:text-error={transaction.expense} class:text-success={!transaction.expense}>
 						{formatCurrency(transaction.value)}
 					</td>
 
