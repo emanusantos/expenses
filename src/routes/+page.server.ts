@@ -1,13 +1,13 @@
 import { db } from '$lib/server/db';
-import { expense } from '$lib/server/db/schema';
+import { transaction } from '$lib/server/db/schema';
 import { fail } from '@sveltejs/kit';
 import { eq } from 'drizzle-orm';
 
 export async function load() {
-	const expenses = await db.select().from(expense);
+	const transactions = await db.select().from(transaction);
 
 	return {
-		expenses
+		transactions
 	};
 }
 
@@ -15,14 +15,16 @@ export const actions = {
 	create: async ({ request }) => {
 		const data = await request.formData();
 
-		const name = data.get('name');
-		const value = data.get('value');
+		const name = data.get('name') as string;
+		const value = data.get('value') as string;
+		const type = data.get('type') as string;
 
-		if (!name || !value || typeof name !== 'string' || typeof value !== 'string')
+		if (![name, value, type].every((field) => !!field || typeof field === 'string'))
 			return fail(400, {
 				error: 'requisição inválida.'
 			});
 
+		const expense = type === 'expense';
 		const numericValue = parseFloat(value.replace(',', '.'));
 
 		if (isNaN(numericValue))
@@ -30,7 +32,7 @@ export const actions = {
 				error: 'valor inválido.'
 			});
 
-		await db.insert(expense).values({ name, value: numericValue });
+		await db.insert(transaction).values({ name, value: numericValue, expense });
 
 		return {
 			success: true
@@ -45,6 +47,6 @@ export const actions = {
 
 		const numericId = parseInt(id);
 
-		await db.delete(expense).where(eq(expense.id, numericId));
+		await db.delete(transaction).where(eq(transaction.id, numericId));
 	}
 };

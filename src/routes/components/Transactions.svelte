@@ -1,8 +1,9 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import type { expense } from '$lib/server/db/schema';
+	import { formatCurrency } from '$lib';
+	import type { transaction } from '$lib/server/db/schema';
 
-	let { expenses }: { expenses: Array<typeof expense.$inferSelect> } = $props();
+	let { transactions }: { transactions: Array<typeof transaction.$inferSelect> } = $props();
 </script>
 
 <div class="overflow-x-auto">
@@ -21,7 +22,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{#each expenses as expense}
+			{#each transactions as transaction}
 				<tr>
 					<th>
 						<label>
@@ -30,23 +31,21 @@
 					</th>
 
 					<td>
-						<div class="text-sm opacity-50">{expense.name}</div>
+						<div class="text-sm opacity-50">{transaction.name}</div>
 					</td>
 
 					<td>
-						{new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
-							expense.value
-						)}
+						{formatCurrency(transaction.value)}
 					</td>
 
-					<td>{new Date(expense.created_at).toLocaleDateString('pt-BR')}</td>
+					<td>{new Date(transaction.created_at).toLocaleDateString('pt-BR')}</td>
 
 					<th>
 						<div class="flex gap-4">
 							<button class="btn btn-ghost btn-xs">detalhes</button>
 
 							<form method="POST" action={`?/delete`} use:enhance>
-								<input type="hidden" name="id" value={expense.id} />
+								<input type="hidden" name="id" value={transaction.id} />
 								<button class="btn btn-error btn-xs">remover</button>
 							</form>
 						</div>

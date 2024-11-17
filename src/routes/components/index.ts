@@ -1,5 +1,6 @@
-import Expenses from './Expenses.svelte';
-import NoExpenses from './NoExpenses.svelte';
-import NewExpense from './NewExpense.svelte';
+import Transactions from './Transactions.svelte';
+import NoTransactions from './NoTransactions.svelte';
+import NewTransaction from './NewTransaction.svelte';
+import Stats from './Stats.svelte';
 
-export { Expenses, NoExpenses, NewExpense };
+export { Transactions, NoTransactions, NewTransaction, Stats };

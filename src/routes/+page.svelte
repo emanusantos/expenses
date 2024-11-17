@@ -1,15 +1,19 @@
 <script>
-	import { Expenses, NewExpense, NoExpenses } from './components';
+	import { Transactions, NewTransaction, NoTransactions, Stats } from './components';
 
 	let { data } = $props();
 </script>
 
 <main class="min-h-[90dvh]">
-	{#if !data.expenses.length}
-		<NoExpenses />
+	{#if !data.transactions.length}
+		<NoTransactions />
 	{:else}
-		<Expenses expenses={data.expenses} />
+		<div class="flex flex-col gap-10">
+			<Stats />
+
+			<Transactions transactions={data.transactions} />
+		</div>
 	{/if}
 
-	<NewExpense />
+	<NewTransaction />
 </main>

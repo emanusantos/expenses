@@ -17,8 +17,8 @@
 		></path>
 	</svg>
 	<div>
-		<h3 class="font-bold">nenhuma despesa adicionada.</h3>
-		<div class="text-xs">comece a adicionar suas despesas para controlar seus gastos!</div>
+		<h3 class="font-bold">nenhuma transação adicionada.</h3>
+		<div class="text-xs">comece a adicionar suas transações para controlar seus gastos!</div>
 	</div>
 
 	<button class="btn btn-sm" onclick={openNewExpenseModal}>+ adicionar</button>
